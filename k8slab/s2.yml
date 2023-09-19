@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: prome-service
+  labels:
+    app: prome
+    svc: prome-svc
+spec:
+  selector:
+    app: prome
+  ports:
+  - protocol: TCP
+    name: prometheus
+    port: 9090
+    targetPort: 9090

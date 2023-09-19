@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: prome
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: prome
+        svc: prome-svc
+    spec:
+      containers:
+      - name: prome
+        image: prom/prometheus:master
+        ports:
+        - containerPort: 9090
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: 2
+          requests:
+            memory: 1Gi
+            cpu: 2

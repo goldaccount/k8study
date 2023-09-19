@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  selector:
+    matchLabels:
+      app: monitor
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: monitor
+        svc: monitor-svc
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana-oss:main
+        ports:
+        - containerPort: 3000
+      - name: prometheus
+        image: prom/prometheus:master
+        ports:
+        - containerPort: 9090
+apiVersion: v1
+kind: Service
+metadata:
+  name: monitor-service
+  labels:
+    app: monitor
+    svc: monitor-svc
+spec:
+  selector:
+    app: grafana
+  ports:
+  - protocol: TCP
+    name: grafana
+    port: 3000
+    targetPort: 80
+  - protocol: TCP
+    name: prometheus
+    port: 9090
+    targetPort: 9090
