@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: d-ng1
+spec:
+  selector:
+    matchLabels:
+      app: ng
+  replicas: 1 # tells deployment to run 10 pod matching the template
+  template:
+    metadata:
+      labels:
+        app: ng
+    spec:
+      containers:
+      - image: nginx:1.14
+        imagePullPolicy: IfNotPresent
+        name: ng
+        ports:
+        - containerPort: 9091
+          protocol: TCP
+        env:
+        - name: KEY1
+          valueFrom:
+           configMapKeyRef:
+             name: configmap1 
+             key: key1
+        - name: KEY2
+          valueFrom:
+            secretKeyRef:
+              name: secret1
+              key: sk1
+        volumeMounts:
+        - name: config-vol1
+          mountPath: "/config"
+          readOnly: true
+        - name: secret-vol1
+          mountPath: "/etc/secret"
+          readOnly: true
+      volumes:
+      - name: config-vol1
+        configMap:
+          name: configmap1
+          items:
+          - key: "file1"
+            path: "file1"
+          - key: "file2"
+            path: "file2"
+      - name: secret-vol1
+        secret:
+          secretName: secret1

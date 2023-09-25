@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap1
+data:
+  key1: value1
+  key2: value2
+  file1: |
+    file1key1=file1key1value1
+    file1key3=file1key3value3
+  file2: |
+    file2key1=file2key1value1
+    file2key2=file2key2value2

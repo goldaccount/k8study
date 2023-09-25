@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret1
+type: Opaque
+data:
+  sk1: c2VjcmV0MQ==
+  sk2: c2VjcmV0Mg==
+  sk3: c2VjcmV0Mw==
+    file2key2=file2key2value2
+    file2key1=file2key1value1
