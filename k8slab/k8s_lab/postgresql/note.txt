@@ -1,0 +1,1 @@
+{project_name}, {export_read_port}, {export_write_port}, {storage}, {master_replica}, {slave_replica}, {admin_replica}, {cpu}, {memory}

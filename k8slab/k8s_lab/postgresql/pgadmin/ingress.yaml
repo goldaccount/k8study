@@ -1,0 +1,15 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fi862-pgadmin
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: fi862-pgadmin.smartpro.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: fi862-postgresql-pgadmin
+          servicePort: 80

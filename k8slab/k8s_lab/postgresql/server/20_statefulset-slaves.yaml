@@ -1,0 +1,197 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "xxx-postgresql-slave"
+  labels:
+    app: postgresql
+    instance: xxx
+spec:
+  serviceName: xxx-postgresql-headless
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postgresql
+      instance: xxx
+      role: slave
+  template:
+    metadata:
+      name: xxx-postgresql
+      labels:
+        app: postgresql
+        instance: xxx
+        role: slave
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - postgresql
+                  - key: instance
+                    operator: In
+                    values:
+                      - xxx
+              topologyKey: "kubernetes.io/hostname"
+
+      securityContext:
+        fsGroup: 1001
+      initContainers:
+      - name: init-chmod-data
+        image: docker.io/bitnami/minideb:latest
+        imagePullPolicy: "Always"
+        resources:
+          requests:
+            cpu: 1m
+            memory: 1Gi
+          
+        command:
+          - sh
+          - -c
+          - |
+            mkdir -p /bitnami/postgresql/data
+            chmod 700 /bitnami/postgresql/data
+            find /bitnami/postgresql -mindepth 1 -maxdepth 1 -not -name ".snapshot" -not -name "lost+found" | \
+              xargs chown -R 1001:1001
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/postgresql
+          subPath: 
+      containers:
+      - name: xxx-postgresql
+        image: bitnami/postgresql:14
+        imagePullPolicy: "IfNotPresent"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+          
+        securityContext:
+          runAsUser: 1001
+        env:
+        - name: BITNAMI_DEBUG
+          value: "false"
+        - name: POSTGRESQL_PORT_NUMBER
+          value: "5432"
+        - name: PGDATA
+          value: "/bitnami/postgresql/data"
+        - name: POSTGRES_REPLICATION_MODE
+          value: "slave"
+        - name: POSTGRES_REPLICATION_USER
+          value: "repl_user"
+        - name: POSTGRES_REPLICATION_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: xxx-postgresql
+              key: postgresql-replication-password
+        - name: POSTGRES_CLUSTER_APP_NAME
+          value: repl_application
+        - name: POSTGRES_MASTER_HOST
+          value: xxx-postgresql
+        - name: POSTGRES_MASTER_PORT_NUMBER
+          value: "5432"
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: xxx-postgresql
+              key: postgresql-password
+        ports:
+        - name: postgresql
+          containerPort: 5432
+#        livenessProbe:
+#          exec:
+#            command:
+#            - sh
+#            - -c
+#            - exec pg_isready -U "postgres" -d "postgres" -h 127.0.0.1 -p 5432
+#          initialDelaySeconds: 30
+#          periodSeconds: 10
+#          timeoutSeconds: 5
+#          successThreshold: 1
+#          failureThreshold: 6
+#        readinessProbe:
+#          exec:
+#            command:
+#            - sh
+#            - -c
+#            - |
+#              pg_isready -U "postgres" -d "postgres" -h 127.0.0.1 -p 5432
+#              [ -f /opt/bitnami/postgresql/tmp/.initialized ]
+#          initialDelaySeconds: 5
+#          periodSeconds: 10
+#          timeoutSeconds: 5
+#          successThreshold: 1
+#          failureThreshold: 6
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/postgresql
+          subPath: 
+        
+        - name: postgresql-config
+          mountPath: /bitnami/postgresql/conf
+
+      - name: metrics
+        image: docker.io/wrouesnel/postgres_exporter:v0.4.7
+        imagePullPolicy: "IfNotPresent"
+        env:
+          - name: DATA_SOURCE_URI
+            value: "127.0.0.1:5432/postgres?sslmode=disable"
+          - name: DATA_SOURCE_PASS
+            valueFrom:
+              secretKeyRef:
+                name: xxx-postgresql
+                key: postgresql-password
+          - name: DATA_SOURCE_USER
+            value: postgres
+        livenessProbe:
+          httpGet:
+            path: /
+            port: metrics
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        readinessProbe:
+          httpGet:
+            path: /
+            port: metrics
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 6
+        volumeMounts:
+        ports:
+          - name: metrics
+            containerPort: 9187
+        resources:
+          requests:
+            cpu: 0.2m
+            memory: 200Mi
+
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+      - name: postgresql-config
+        configMap:
+          name: xxx-postgresql-configuration
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "2Gi"

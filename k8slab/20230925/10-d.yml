@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ns-tuan
+  name: d-ng
+spec:
+  selector:
+    matchLabels:
+      app: ng1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ng1
+    spec:
+      containers:
+      - name: ng1
+        image: nginx:1.14
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+        volumeMounts: 
+        - mountPath: /share
+          name: vol-share
+        command: [ 'sh', '-c', 'while true; do date +%s >> /share/log; sleep 5; done;']
+      - name: bb1
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command: ['sh','-c','tail -F /share/log']
+        volumeMounts: 
+        - mountPath: /share
+          name: vol-share
+      initContainers:
+      - name: init1
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        #command: ['sh','-c','exit 0']
+        command: ['sh', '-c', "until nslookup ns-tuan-service.ns-tuan.svc.cluster.local; do echo waiting for ns-tuan-svc; sleep 4; done"]
+      volumes:
+      - name: vol-share
+        emptyDir:
+          sizeLimit: 2M

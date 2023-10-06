@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-ingress-sample
+data:
+  index.html: |
+    <HTML>
+    <HEAD><TITLE>K8s nginx</TITLE></HEAD>
+    <BODY>
+    <H1>Welcome to Cuong's Pod</H1>
+    <H1>Test 30801/H1>
+    </BODY></HTML>

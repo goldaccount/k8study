@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: postgresql
+    component: pgadmin
+    instance: fi862
+  name: fi862-postgresql-pgadmin
+spec:
+  accessModes:
+    - ReadWriteOnce    
+  resources:
+    requests:
+      storage: "500M"
+

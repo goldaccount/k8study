@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-ingress-sample
-  namespace: test
+  namespace: ns-tuan
   labels:
     name: nginx-ingress-sample
     lab: ingress

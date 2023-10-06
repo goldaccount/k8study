@@ -1,0 +1,31 @@
+20231004
+Pod - Pod (Same Host) Linux Bridge
+Pod - Pod (Diff Host) Overlay network (create via CNI)
+
+CNI: Cilium, Calico: use eBPF
+
+https://cilium.io/use-cases/egress-gateway/
+https://github.com/cilium/cilium
+https://docs.tigera.io/calico/latest/networking/configuring/bgp
+
+Storage
+https://www.slideshare.net/SeanCohen/storage-101-rook-and-ceph-open-infrastructure-denver-2019
+PersistentVolume - persist through pod delete (if pod delete carry to new pod)
+StorageClass -> CSI (Container Storage Interface) -> Distributed Storage (via CSI plugin)
+
+Reclaim Policy:  Delete (delete data when delete volume)
+use PV Claim to request via StorageClass for resource
+
+If Delete StorageClass -> call Storage to Delete
+If Delete STS/DP -> no auto delete PVC
+
+Deployment: PVC's AccessMode: ReadWriteMany
+StatefulSet: PVC's AccessMode: ReadWriteOnce - if delete -> unmount then mount to new pod
+
+Dynamic create new depends on different StorageClass (tiers: SSD, HDD, ...)
+
+Rook: Deploy Ceph on K8s
+RGW: App Gateway
+RBD: Block Device (ReadWriteOnce)
+CephFS: File System (ReadWriteMany) 
+

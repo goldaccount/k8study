@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xxx-postgresql-read
+  labels:
+    app: postgresql
+    instance: xxx
+spec:
+  type: NodePort
+  ports:
+  - name: postgresql
+    port:  5432
+    nodePort: 30555
+    targetPort: postgresql
+  selector:
+    app: postgresql
+    instance: xxx
+    role: slave

@@ -1,0 +1,123 @@
+<mxfile host="app.diagrams.net" modified="2023-10-04T13:12:32.418Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.47" etag="ZCsFBttOeNGcESYrSJ01" version="22.0.2" type="device">
+  <diagram name="Page-1" id="wCnXRDlN7EDACogJPakO">
+    <mxGraphModel dx="1179" dy="662" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-1" value="Pod&lt;br&gt;(nginx run port 80)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="50" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-2" target="DTUCcxRICm7iqNUFdoXs-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-2" value="Svc (nginx-svc)&lt;br&gt;(expose pod:80 to 30000~32000)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-3" target="DTUCcxRICm7iqNUFdoXs-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-3" value="Ingress&lt;br&gt;IP - Which path to which backend (svc)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-8" value="ClusterIP / NodePort/ LoadBalancer" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="162.5" width="80" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-9" target="DTUCcxRICm7iqNUFdoXs-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-9" value="ToR" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="365" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-11" value="BGP Peering" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="290" y="150" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-12" value="(A range of IP public assign to one svc to get its External IP if requested)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="343" y="120" width="165" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-13" target="DTUCcxRICm7iqNUFdoXs-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-13" value="CSI" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-14" target="DTUCcxRICm7iqNUFdoXs-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-14" value="Storage&#39;s CSI Plugin" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-16" target="DTUCcxRICm7iqNUFdoXs-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-16" value="Storage Class" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-19" value="Storage&lt;br&gt;(CEPH, EBS) (Existing)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-22" value="StorageClass - CSI (Container Storage Interface) -&amp;gt; Distributed Storage (via CSI plugin)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="370" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-23" target="DTUCcxRICm7iqNUFdoXs-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-23" value="Pod&lt;br&gt;Volume: Claim Name" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-25" target="DTUCcxRICm7iqNUFdoXs-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-25" target="DTUCcxRICm7iqNUFdoXs-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="640" />
+              <mxPoint x="130" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-25" value="PVC&lt;br&gt;(NS level)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-27" target="DTUCcxRICm7iqNUFdoXs-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-27" target="DTUCcxRICm7iqNUFdoXs-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="640" />
+              <mxPoint x="290" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-27" value="PV&lt;br&gt;(Cluster level)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-28" value="Physical Storage&lt;br&gt;(Dynamic Create)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DTUCcxRICm7iqNUFdoXs-30" target="DTUCcxRICm7iqNUFdoXs-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-30" value="StorageClass" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-34" value="Dynamic create new depends on different StorageClass (tiers: SSD, HDD, ...)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="500" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-37" value="Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="343" y="590" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-38" value="Create" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="500" y="590" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-40" value="Bind" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DTUCcxRICm7iqNUFdoXs-43" value="Mount to Pod" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="640" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+
