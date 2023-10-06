@@ -1,0 +1,6 @@
+architecture: replicaset # MongoDB's architecture (standalone or replicaset)
+replicaCount: 5 # Number of MongoDB nodes (only when architecture=replicaset)
+persistence:
+  storageClass: "rook-ceph-block" # PVC Storage Class for MongoDB data volume
+auth:
+  rootPassword: secret-key-pwd # MongoDB root password
