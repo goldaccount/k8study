@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sts-nginx
+  namespace: ns-nginx
+spec:
+  selector:
+    matchLabels:
+      apps: nginx1
+#  serviceName: 
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        apps: nginx1
+    spec:
+      containers:
+        - name: ct-nginx2
+          image: nginx:1.25
+          ports:
+            - containerPort: 80
+              name: "http-nginx"
+          volumeMounts:
+            - mountPath: "/var/www/html"
+              name: vc-nginx1
+  volumeClaimTemplates:
+    - metadata:
+        name: vc-nginx1
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "csi-rbd-sc"
+        resources:
+          requests:
+            storage: 1Gi

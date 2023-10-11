@@ -1,0 +1,23 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ipap-tuan
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.1.130-192.168.1.134
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ipap-tuan135
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.1.135-192.168.1.139
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2ad-tuan
+  namespace: metallb-system

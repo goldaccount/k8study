@@ -1,0 +1,139 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web3-135
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 8088
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web3-1358087
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 8087
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web4
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web5
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web6
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web7
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web8
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web9
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web10
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-web11
+  namespace: ns-nginx
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
