@@ -1,0 +1,1 @@
+export KUBECONFIG=/home/nr2/.kube/config

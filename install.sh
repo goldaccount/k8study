@@ -68,3 +68,38 @@ echo "Install flannel"
 curl -fsSL 'https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml' -o kube-flannel.yml
 kubectl apply -f kube-flannel.yml
 
+
+#--------------Alpine + Calico-------------
+# Do not install flannel
+# Alpine setup: https://wiki.alpinelinux.org/wiki/K8s
+# Canal (Calico + Flannel) setup: https://docs.tigera.io/calico/latest/getting-started/kubernetes/flannel/install-for-flannel
+
+#Enable IP forward
+echo "br_netfilter" > /etc/modules-load.d/k8s.conf
+modprobe br_netfilter
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+#Swap off
+swapoff -a
+sed -i '/swap/s/^/#/' /etc/fstab
+
+#Fix share mount: Error: failed to generate container "0e2fb6f4eb284e9bf894963990b73b26c5d55ec5318e6eec9ee155dbd65845bb" spec: failed to generate spec: path "/sys/fs/" is mounted on "/sys" but it is not a shared mount
+mount --make-rshared /
+echo -i "#!/bin/sh\nmount --make-rshared /" >> /etc/local.d/sharemount.sh
+chmod -x /etc/local.d/sharemount.sh
+rc-update add local
+
+#Kernel Iptables
+echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
+sysctl net.bridge.bridge-nf-call-iptables=1
+
+#Calico - note version, subject to change
+kubectl apply -f 'https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/canal.yaml'
+
+#Fix calico path (apply on every node)
+ln /opt/cni/bin/calico /usr/libexec/cni/
+ln /opt/cni/bin/calico-ipam /usr/libexec/cni/
+
+
+
+
